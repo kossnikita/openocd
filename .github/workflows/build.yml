@@ -133,27 +133,38 @@ jobs:
         env:
           LIBUSB1_VER: 1.0.26
         run: |
-          git clone https://github.com/libusb/libusb && cd libusb && git checkout tags/v$LIBUSB1_VER -b v$LIBUSB1_VER && ./bootstrap.sh
-          echo "LIBUSB1_SRC=$PWD" >> $GITHUB_ENV
+          mkdir -p $DL_DIR && cd $DL_DIR
+          wget "https://github.com/libusb/libusb/releases/download/v${LIBUSB1_VER}/libusb-${LIBUSB1_VER}.tar.bz2"
+          tar -xjf libusb-${LIBUSB1_VER}.tar.bz2
+          echo "LIBUSB1_SRC=$PWD/libusb-${LIBUSB1_VER}" >> $GITHUB_ENV
       - name: Prepare hidapi
         env:
-          HIDAPI_VER: 0.11.2
+          HIDAPI_VER: 0.13.1
         run: |
-          git clone https://github.com/libusb/hidapi && cd hidapi && git checkout tags/hidapi-$HIDAPI_VER -b $HIDAPI_VER && ./bootstrap 
+          mkdir -p $DL_DIR && cd $DL_DIR
+          wget "https://github.com/libusb/hidapi/archive/hidapi-${HIDAPI_VER}.tar.gz"
+          tar -xzf hidapi-${HIDAPI_VER}.tar.gz
+          cd hidapi-hidapi-${HIDAPI_VER}
+          ./bootstrap
           echo "HIDAPI_SRC=$PWD" >> $GITHUB_ENV
       - name: Prepare libftdi
         env:
           LIBFTDI_VER: 1.5
         run: |
-          git clone git://developer.intra2net.com/libftdi && cd libftdi && git checkout tags/v$LIBFTDI_VER -b v$LIBFTDI_VER
-          sed -i "24,39s/^/# /" ./src/CMakeLists.txt 
-          echo "LIBFTDI_SRC=$PWD" >> $GITHUB_ENV
+          mkdir -p $DL_DIR && cd $DL_DIR
+          wget "http://www.intra2net.com/en/developer/libftdi/download/libftdi1-${LIBFTDI_VER}.tar.bz2"
+          tar -xjf libftdi1-${LIBFTDI_VER}.tar.bz2
+          echo "LIBFTDI_SRC=$PWD/libftdi1-${LIBFTDI_VER}" >> $GITHUB_ENV
       - name: Prepare capstone
         env:
           CAPSTONE_VER: 4.0.2
         run: |
-          git clone https://github.com/capstone-engine/capstone.git && cd capstone && git checkout tags/$CAPSTONE_VER -b $CAPSTONE_VER
-          echo "CAPSTONE_SRC=$PWD" >> $GITHUB_ENV
+          mkdir -p $DL_DIR && cd $DL_DIR
+          CAPSTONE_NAME=${CAPSTONE_VER}
+          CAPSTONE_FOLDER=capstone-${CAPSTONE_VER}
+          wget "https://github.com/aquynh/capstone/archive/${CAPSTONE_VER}.tar.gz"
+          tar -xzf ${CAPSTONE_VER}.tar.gz
+          echo "CAPSTONE_SRC=$PWD/capstone-${CAPSTONE_VER}" >> $GITHUB_ENV
       - name: Package OpenOCD for windows
         env:
           MAKE_JOBS: 2
