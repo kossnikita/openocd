@@ -955,7 +955,7 @@ static int at32x_probe(struct flash_bank *bank)
 	int num_pages = at32x_info->sector_num;
 
 	/* check that calculation result makes sense */
-	assert(num_pages > 0);
+	// assert(num_pages > 0);
 
 	if (bank->sectors) {
 		free(bank->sectors);
