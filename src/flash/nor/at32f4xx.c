@@ -1092,6 +1092,9 @@ COMMAND_HANDLER(at32x_handle_disable_access_protection_command)
 		return ERROR_OK;
 	}
 	at32x_info->usd_data.fap = 0xA5;
+	at32x_info->usd_data.ssb = 0xFF;
+	at32x_info->usd_data.data = 0xFFFF;
+	at32x_info->usd_data.protection = 0xFFFFFFFF;
 	if (at32x_write_usd_data(bank) != ERROR_OK) {
 		LOG_INFO("at32x failed to write usd");
 		return ERROR_OK;
