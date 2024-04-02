@@ -8,7 +8,7 @@ jobs:
     env:
       BUILD_DIR: build
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: install deps
         run: brew install libtool automake texinfo coreutils pkg-config cmake gnu-sed
       - name: build
@@ -58,7 +58,7 @@ jobs:
           echo "ARTIFACT_PATH=$PREFIX/openocd" >> $GITHUB_ENV
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: openocd-mac
           path: ${{ env.ARTIFACT_PATH }}/*
@@ -68,7 +68,7 @@ jobs:
     env:
       BUILD_DIR: build
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: install deps
         run: sudo apt-get install git libtool pkg-config autoconf automake libudev-dev build-essential cmake
       - name: build
@@ -114,7 +114,7 @@ jobs:
           echo "ARTIFACT_PATH=$PREFIX/openocd" >> $GITHUB_ENV
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: openocd-linux
           path: ${{ env.ARTIFACT_PATH }}/*
@@ -124,7 +124,7 @@ jobs:
     env:
       BUILD_DIR: build
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: install deps
         run: sudo apt-get install git autoconf automake libtool-bin build-essential cmake libudev-dev pkg-config autotools-dev gcc-mingw-w64-i686
       - name: Bootstrap
@@ -176,7 +176,7 @@ jobs:
           echo "ARTIFACT_PATH=$PWD" >> $GITHUB_ENV
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: openocd-windows-x86
           path: ${{ env.ARTIFACT_PATH }}/*
@@ -186,7 +186,7 @@ jobs:
     env:
       BUILD_DIR: build
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: install deps
         run: sudo apt-get install git autoconf automake libtool-bin build-essential cmake libudev-dev pkg-config autotools-dev gcc-mingw-w64-x86-64
       - name: Bootstrap
@@ -238,7 +238,7 @@ jobs:
           echo "ARTIFACT_PATH=$PWD" >> $GITHUB_ENV
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: openocd-windows-x64
           path: ${{ env.ARTIFACT_PATH }}/*
@@ -276,7 +276,7 @@ jobs:
           cp -rv ../build/openocd-linux/share/openocd/scripts scripts
 
       - name: Upload xpack
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: xpack
           path: output/*
