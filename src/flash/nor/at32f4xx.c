@@ -167,8 +167,7 @@ static int at32x_get_product_id(struct flash_bank *bank, uint32_t *product_id)
 static int at32x_get_flash_size(struct flash_bank *bank, uint16_t *flash_size_in_kb)
 {
 	struct target *target = bank->target;
-	int retval;
-	retval = target_read_u16(target, AT32_FLASH_SIZE_ADDR, flash_size_in_kb);
+	int retval = target_read_u16(target, AT32_FLASH_SIZE_ADDR, flash_size_in_kb);
 	if (retval != ERROR_OK)
 		return retval;
 	return retval;
@@ -323,6 +322,7 @@ static int at32_get_device_info(struct flash_bank *bank)
 		retval = at32x_get_flash_size(bank, (uint16_t *)&(at32x_info->flash_size));
 		if (retval != ERROR_OK || at32x_info->flash_size == 0 || at32x_info->flash_size == 0xFFFF)
 		{
+			at32x_info->flash_size = 64;
 			LOG_WARNING("read at32 flash size failed, %"PRIu32"k flash",at32x_info->flash_size);
 		}
 
